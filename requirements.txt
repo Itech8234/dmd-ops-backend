@@ -13,3 +13,4 @@ daphne>=4.1
 python-dotenv>=1.0
 # Push delivery to Android/iOS notification trays (Firebase Cloud Messaging).
 firebase-admin>=2.4
+gunicorn
