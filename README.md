@@ -363,3 +363,5 @@ Docker walkthrough, [`docs/API.md`](docs/API.md) for the endpoint reference,
 [`docs/OFFLINE_SYNC.md`](docs/OFFLINE_SYNC.md) for how offline-first works
 end to end, and [`docs/SECURITY.md`](docs/SECURITY.md) for the security
 model applied during the audit.
+#   d m d - o p s - b a c k e n d  
+ 
