@@ -259,45 +259,57 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # ---------------------------------------------------------------------------
 # Logging
 # ---------------------------------------------------------------------------
+import os
+
+LOG_LEVEL = os.environ.get("DJANGO_LOG_LEVEL", "INFO")
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
+
     "formatters": {
         "verbose": {
-            "format": "{levelname} {asctime} {module} {message}",
+            "format": "{levelname} {asctime} {name} {message}",
             "style": "{",
         },
         "simple": {
-            "format": "{levelname} {asctime} {module} {message}",
+            "format": "{levelname} {message}",
             "style": "{",
         },
     },
+
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
-        "file": {
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": BASE_DIR / "logs" / "ycomps.log",
-            "maxBytes": 5 * 1024 * 1024,
-            "backupCount": 5,
-            "formatter": "verbose",
-        },
     },
+
     "root": {
-        "handlers": ["console", "file"],
-        "level": os.environ.get("DJANGO_LOG_LEVEL", "INFO"),
+        "handlers": ["console"],
+        "level": LOG_LEVEL,
     },
+
     "loggers": {
         "django": {
-            "handlers": ["console", "file"],
-            "level": os.environ.get("DJANGO_LOG_LEVEL", "INFO"),
+            "handlers": ["console"],
+            "level": LOG_LEVEL,
+            "propagate": False,
+        },
+
+        "django.request": {
+            "handlers": ["console"],
+            "level": "ERROR",
+            "propagate": False,
+        },
+
+        "django.server": {
+            "handlers": ["console"],
+            "level": "INFO",
             "propagate": False,
         },
     },
 }
-
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
